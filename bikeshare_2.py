@@ -23,9 +23,9 @@ print('Initialisation complete')
 print('-'*40)
 
 ## Variables we want globally available for use in more than one function
-months = ('all', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december')
+months = ('none', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december')
 month_dict = dict(zip(months,(list(range(0,13)))))
-month_dict_inverse = {month: month_val for month_val, month in month_dict.items()} # For easy lookup with the retrieved numeric month value, reverse our month dictionary
+month_dict_inverse = {k: v for v, k in month_dict.items()} # For easy lookup with the retrieved numeric month value, reverse our month dictionary
 
 ## User input here decides which database to query and how
 def get_filters():
@@ -34,7 +34,7 @@ def get_filters():
 
     Returns:
         (str) city - name of the city to analyze
-        (str) month - name of the month to filter by, or "all" to apply no month filter
+        (str) month - name of the month to filter by, or "none" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
 
@@ -53,7 +53,7 @@ def get_filters():
     ##  Maybe want to offer year, day or month options for exploration? Or specific date ?
     ## User input for month (all, january, february, ... , june)
     months_str = ', '.join([month for month in months]).title()
-    months_choice_msg = "Which month would you like to explore? \n\nAvailable options:\n" + months_str + "\n\nPlease select month: "
+    months_choice_msg = "You may filter for a specific month or none. Which month would you like to explore? \n\nAvailable options:\n" + months_str + "\n\nPlease select month: "
     month = input(months_choice_msg).lower()
     # Control for invalid user input and prompt them to retry if invalid
     while month not in months:
@@ -118,7 +118,7 @@ def filter_data(city, month, day):
     df['Trip'] = df['Start Station'] + " - " + df['End Station'] #Used in station_stats
 
     ## Apply required filter
-    if month != 'all':
+    if month != 'none':
         df = df.loc[df['Month'] == month_dict.get(month)]
     if day != 'all':
         df = df.loc[df['Day Of Week'] == day.title(),:]
@@ -165,11 +165,11 @@ def station_stats(df):
 
     # display most commonly used start station
     most_common_start_station = df['Start Station'].mode().values[0]
-    print('The most common starting station is: ' + most_common_start_station)
+    print('The most common start station is: ' + most_common_start_station)
 
     # display most commonly used end station
     most_common_end_station = df['End Station'].mode().values[0]
-    print('The most common ending station is: ' + most_common_end_station)
+    print('The most common end station is: ' + most_common_end_station)
 
     # display most frequent combination of start station and end station trip
     most_common_trip = df['Trip'].mode().values[0]
@@ -188,10 +188,10 @@ def trip_duration_stats(df):
     # display total travel time
     total_travel_time = df['Trip Duration'].sum()
     print('The total travel time is shown below (rounded to two decimal places)')
-    print('Total time in seconds: ' + str(total_travel_time))
-    print('Total time in minutes: ' + str(round(total_travel_time/60, 2)))
-    print('Total time in hours: ' + str((round(total_travel_time/60/60, 2))))
-    print('Total time in days: ' + str((round(total_travel_time/60/60/24, 2))))
+    print('In seconds: ' + str(total_travel_time))
+    print('In minutes: ' + str(round(total_travel_time/60, 2)))
+    print('In hours: ' + str((round(total_travel_time/60/60, 2))))
+    print('In days: ' + str((round(total_travel_time/60/60/24, 2))))
 
     # display mean travel time
     mean_travel_time = df['Trip Duration'].mean()
@@ -233,6 +233,7 @@ def main():
     The Washington dataset does not have the data to support user_stats, so this is only calculated for NYC and Chicago
     """
     while True:
+        print('Running main function')
         city, month, day = get_filters()
         df = filter_data(city, month, day)
 
