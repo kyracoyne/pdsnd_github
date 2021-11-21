@@ -52,7 +52,7 @@ def get_filters():
     ##  Maybe want to offer year, day or month options for exploration? Or specific date ?
     ## User input for month (all, january, february, ... , june)
     months_str = ', '.join([month for month in months]).title()
-    months_choice_msg = "Which month would you like to explore? \n\nAvailable options:\n" + months_str + "\n\nPlease select month: "
+    months_choice_msg = "You may filter for a specific month or none. Which month would you like to explore? \n\nAvailable options:\n" + months_str + "\n\nPlease select month: "
     month = input(months_choice_msg).lower()
     # Control for invalid user input and prompt them to retry if invalid
     while month not in months:
@@ -187,10 +187,10 @@ def trip_duration_stats(df):
     # display total travel time
     total_travel_time = df['Trip Duration'].sum()
     print('The total travel time is shown below (rounded to two decimal places)')
-    print('Total time in seconds: ' + str(total_travel_time))
-    print('Total time in minutes: ' + str(round(total_travel_time/60, 2)))
-    print('Total time in hours: ' + str((round(total_travel_time/60/60, 2))))
-    print('Total time in days: ' + str((round(total_travel_time/60/60/24, 2))))
+    print('In seconds: ' + str(total_travel_time))
+    print('In minutes: ' + str(round(total_travel_time/60, 2)))
+    print('In hours: ' + str((round(total_travel_time/60/60, 2))))
+    print('In days: ' + str((round(total_travel_time/60/60/24, 2))))
 
     # display mean travel time
     mean_travel_time = df['Trip Duration'].mean()
