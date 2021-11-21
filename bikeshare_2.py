@@ -24,7 +24,7 @@ print('-'*40)
 ## Variables we want globally available for use in more than one function
 months = ('none', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december')
 month_dict = dict(zip(months,(list(range(0,13)))))
-month_dict_inverse = {month: month_val for month_val, month in month_dict.items()} # For easy lookup with the retrieved numeric month value, reverse our month dictionary
+month_dict_inverse = {k: v for v, k in month_dict.items()} # For easy lookup with the retrieved numeric month value, reverse our month dictionary
 
 ## User input here decides which database to query and how
 def get_filters():
@@ -164,11 +164,11 @@ def station_stats(df):
 
     # display most commonly used start station
     most_common_start_station = df['Start Station'].mode().values[0]
-    print('The most common starting station is: ' + most_common_start_station)
+    print('The most common start station is: ' + most_common_start_station)
 
     # display most commonly used end station
     most_common_end_station = df['End Station'].mode().values[0]
-    print('The most common ending station is: ' + most_common_end_station)
+    print('The most common end station is: ' + most_common_end_station)
 
     # display most frequent combination of start station and end station trip
     most_common_trip = df['Trip'].mode().values[0]
