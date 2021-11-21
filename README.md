@@ -12,7 +12,7 @@ Program to explore bike share data from Washington, Chicago, and New York City
 ### Files used
 washington.csv, new_york_city.csv, and chicago.csv are the data files required to run this program
 
-### Credits
+### Resources Used
 https://www.interviewqs.com/ddi-code-snippets/extract-month-year-pandas
 https://stackoverflow.com/questions/9847213/how-do-i-get-the-day-of-week-given-a-date
 https://stackoverflow.com/questions/483666/reverse-invert-a-dictionary-mapping
