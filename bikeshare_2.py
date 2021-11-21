@@ -22,7 +22,7 @@ print('Initialisation complete')
 print('-'*40)
 
 ## Variables we want globally available for use in more than one function
-months = ('all', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december')
+months = ('none', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december')
 month_dict = dict(zip(months,(list(range(0,13)))))
 month_dict_inverse = {month: month_val for month_val, month in month_dict.items()} # For easy lookup with the retrieved numeric month value, reverse our month dictionary
 
@@ -33,7 +33,7 @@ def get_filters():
 
     Returns:
         (str) city - name of the city to analyze
-        (str) month - name of the month to filter by, or "all" to apply no month filter
+        (str) month - name of the month to filter by, or "none" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
 
@@ -117,7 +117,7 @@ def filter_data(city, month, day):
     df['Trip'] = df['Start Station'] + " - " + df['End Station'] #Used in station_stats
 
     ## Apply required filter
-    if month != 'all':
+    if month != 'none':
         df = df.loc[df['Month'] == month_dict.get(month)]
     if day != 'all':
         df = df.loc[df['Day Of Week'] == day.title(),:]
@@ -232,6 +232,7 @@ def main():
     The Washington dataset does not have the data to support user_stats, so this is only calculated for NYC and Chicago
     """
     while True:
+        print('Running main function')
         city, month, day = get_filters()
         df = filter_data(city, month, day)
 
