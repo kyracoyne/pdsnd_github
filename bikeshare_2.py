@@ -1,5 +1,6 @@
 """
     Usage: ./bikeshare_2.py 
+    Description: Program allows exploration of US bikeshare data
     Author:
         Kyra Coyne
     Date:
